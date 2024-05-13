@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Main;
-namespace App\Http\Controllers\Admin\Main;
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,12 +20,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['\App\Http\Controllers\Main'], function () {
-    Route::get('/', IndexController::class);
-});
+Route::get('/', [MainController::class, 'index']);
 
-Route::group(['\App\Http\Controllers\Admin\Main', 'prefix' => 'admin'],function () {
-    Route::get('/', IndexController::class);
-});
+Route::prefix('admin')
+    ->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin');
+        Route::name('admin')->resource('categories', CategoryController::class);
+    });
+
+
 
 Auth::routes();
