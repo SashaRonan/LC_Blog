@@ -46,4 +46,10 @@ class CategoryController extends Controller
 
         return redirect()->route('admin.categories.show', compact('category'));
     }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        return redirect()->route('admin.categories.index');
+    }
 }
