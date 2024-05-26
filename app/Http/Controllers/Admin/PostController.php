@@ -10,7 +10,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;
 
-class PostController extends Controller
+class PostController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -36,28 +36,10 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        try {
-            $data = $request->validated();
-
-//        $previewImage = $data['preview_image'];
-//        $mainImage = $data['main_image'];
-//        $previewImagePath = Storage::put('/images', $previewImage);
-//        $mainImagePath = Storage::put('/images', $mainImage);
-//        dd($previewImagePath, $mainImagePath);
-
-            $tagIds = $data['tag_ids'];
-            unset($data['tag_ids']);
-
-            $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
-            $data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
-            $post = Post::firstOrCreate($data);
-            $post->tags()->attach($tagIds);
-
-        } catch (\Exception $exception) {
-            abort(404);
-        }
-
+        $data = $request->validated();
+        $this->service->store($data);
         return redirect()->route('admin.posts.index');
+
     }
 
     /**
@@ -84,20 +66,8 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-//TODO: Поправить Update, не работает.
         $data = $request->validated();
-
-        $tagIds = $data['tag_ids'];
-        unset($data['tag_ids']);
-
-
-        $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
-        $data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
-
-        $post->update($data);
-        $post->tags()->sync($tagIds);
-
-
+        $post = $this->service->update($post, $data);
         return redirect()->route('admin.posts.show', compact('post'));
     }
 

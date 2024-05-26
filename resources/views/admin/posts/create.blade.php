@@ -38,19 +38,19 @@
                                 <input type="text" class="form-control w-50" name="title" placeholder="Заголовок поста"
                                        value="{{ old('title') }}">
                                 @error('title')
-                                <div class="text-danger">Это поле необходимо заполнить</div>
+                                <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group w-50">
                                 <textarea id="summernote" name="content"> {{ old('content') }}</textarea>
                                 @error('content')
-                                <div class="text-danger">Это поле необходимо заполнить</div>
+                                <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group w-50">
-                                <label for=main_image>Добавить главное изображение</label>
+                                <label for=main_image>Добавить превью изображения</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" name="preview_image">
@@ -61,8 +61,8 @@
                                         <span class="input-group-text">Загрузка</span>
                                     </div>
                                 </div>
-                                @error('content')
-                                <div class="text-danger">Добавьте превьюшку изображения</div>
+                                @error('preview_image')
+                                <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -78,8 +78,8 @@
                                         <span class="input-group-text">Загрузка</span>
                                     </div>
                                 </div>
-                                @error('content')
-                                <div class="text-danger">Добавьте основное изображение</div>
+                                @error('main_image')
+                                <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
