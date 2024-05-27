@@ -45,24 +45,24 @@
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control col-4" id="email" name="email"
-                                       placeholder="Имя пользователя">
+                                       placeholder="Ваша почта">
                                 @error('email')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label for="password">Пароль</label>
-                                <input type="password" class="form-control col-4" id="password" name="password"
-                                       placeholder="Имя пользователя">
-                                @error('password')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+{{--                            <div class="form-group">--}}
+{{--                                <label for="password">Пароль</label>--}}
+{{--                                <input type="password" class="form-control col-4" id="password" name="password"--}}
+{{--                                       placeholder="Имя пользователя">--}}
+{{--                                @error('password')--}}
+{{--                                <div class="text-danger">{{ $message }}</div>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
 
-                            <div class="form-group w-50">
+                            <div class="form-group">
                                 <label>Выберите роль</label>
-                                <select name="role" class="form-control">
+                                <select name="role" class="form-control col-4">
                                     @foreach($roles as $id =>$role)
                                         <option value="{{ $id }}"
                                             {{ $id == old('role_id') ? 'selected' : '' }}

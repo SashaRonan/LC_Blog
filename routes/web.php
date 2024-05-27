@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index']);
 
-Route::prefix('admin')
+Route::middleware(['auth', 'admin'])->prefix('admin')
     ->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin');
         Route::name('admin')->resource('categories', CategoryController::class);
@@ -36,4 +36,4 @@ Route::prefix('admin')
 
 
 
-//Auth::routes();
+Auth::routes();
